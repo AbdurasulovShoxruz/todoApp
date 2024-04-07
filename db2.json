@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": "de28",
+      "name": "Shoxruz",
+      "email": "sh&@gmail.com",
+      "password": "1234",
+      "rePassword": "1234"
+    },
+    {
+      "id": "1da8",
+      "name": "Shoxruz",
+      "email": "shoxruzabdurasulov7@gmail.com",
+      "password": "12",
+      "rePassword": "12"
+    }
+  ]
+}
