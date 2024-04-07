@@ -1,32 +1,35 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import './Home.scss'
+import "./Home.scss";
+import Clock from "../../assets/images/Group 162.svg";
+import CloseIcon from "@mui/icons-material/Close";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 function Home() {
-  const [modal, setModal] = useState(false)
-  const [userData, setUserData] = useState()
+  const [modal, setModal] = useState(false);
+  const [fillInput, setFillInput] = useState(false);
+  // const [userData, setUserData] = useState()
   const [taskData, setTaskData] = useState([]);
   const [task, setTask] = useState({
     task: "",
   });
 
   const openModal = () => {
-        setModal(true)
-
-  }
+    setModal(true);
+  };
   useEffect(() => {
     fetchData();
-    fetchUserData();
+    // fetchUserData();
   }, []);
 
+  // const fetchUserData = async () => {
+  //   const {data} = await axios.get("http://localhost:3001/users");
 
-  const fetchUserData = async  () => {
-    const response = await axios.get('http://localhost:3001/users');
+  //   setUserData(data);
 
-setUserData(response)
-
-    console.log(response);
-  }
+  //   console.log(data);
+  // };
 
   const fetchData = async () => {
     const { data, status } = await axios.get("http://localhost:3001/tasks");
@@ -52,64 +55,74 @@ setUserData(response)
     );
 
     window.location.reload();
-
-    console.log(response);
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
- if(task?.task){
+    if (task?.task) {
+      const response = await axios.post("http://localhost:3001/tasks", task);
 
-   const response = await axios.post("http://localhost:3001/tasks", task);
-
-   if (response.status === 201) {
-     setTaskData([...taskData, response.data]);
-     setTask({
-       task: "",
-     });
-   }
- }else{
-  alert("wrong")
- }
-
+      if ((response.status === 201, task)) {
+        setTaskData([...taskData, response.data]);
+        setTask({
+          task: "",
+        });
+        setModal(false);
+      }
+    } else {
+      setFillInput(true);
+    }
   };
 
   return (
     <div className="home">
-      <h1>HELLO {userData?.name}</h1>
-      { modal && 
-
-
-      <div className="home__addModal">
-        <form onSubmit={submitHandler}> 
-          <input
-            onChange={inputHandler}
-            type="text"
-            name="task"
-            placeholder="enter"
-            value={task.task} 
-          />
-          <button type="submit">add</button> 
-        </form>
+      <div className="home__top">
+        <h1>Welcome dear user!</h1>
       </div>
-      }
-      <div className="home__taskList">
-        <div
-          style={{ display: "flex", justifyContent: "space-between" }}
-          className="home__taskList-top"
-        >
-          <h1>Daily Task</h1>
-          <button onClick={openModal}>add</button>
-        </div>
-        {taskData.map((eachTask) => {
-          return (
-            <div key={eachTask.id}>
-              <h1>{eachTask.task}</h1>
-              <button onClick={() => deleteHandler(eachTask.id)}>del</button>
+      {modal && (
+        <div className="home__addModal">
+          <form onSubmit={submitHandler}>
+            <div className="home__addModal-top">
+              <label htmlFor="">Add task</label>
+              <CloseIcon onClick={() => setModal(false)} className="close" />
             </div>
-          );
-        })}
+            <input
+              onChange={inputHandler}
+              type="text"
+              name="task"
+              placeholder="Enter the task..."
+              value={task.task}
+            />
+            {fillInput && <p className="error">Please fill this input!</p>}
+            <button onClick={submitHandler} type="submit">
+              add
+            </button>
+          </form>
+        </div>
+      )}
+      <div className="home__midImage">
+        <img src={Clock} alt="" />
+      </div>
+      <div className="home__taskList">
+        <h2>Tasks List</h2>
+        <div className="home__taskList-list">
+          <div className="home__taskList-list-top">
+            <h3>Daily tasks</h3>
+            <AddCircleOutlineIcon onClick={openModal} className="addIcon" />
+          </div>
+          <div className="home__taskList-list-tasks">
+
+          {taskData.map((eachTask) => {
+            return (
+              <div className="home__taskList-list-tasks-task" key={eachTask.id}>
+                <h5>{eachTask.task}</h5>
+                <DeleteOutlineIcon className="deleteIcon" onClick={() => deleteHandler(eachTask.id)}>del</DeleteOutlineIcon>
+              </div>
+            );
+          })}
+          </div>
+        </div>
       </div>
     </div>
   );

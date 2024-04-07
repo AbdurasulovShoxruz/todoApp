@@ -1,0 +1,83 @@
+.register{
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 10px 30px;
+    position: relative;
+
+    &__errorModal{
+        color: red;
+    }
+
+    &__topTitle{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+ 
+     &__input{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        gap: 10px;
+        width: 100%;
+        & div{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            text-align: left;
+
+            & label{
+                font-size: 15px;
+                font-weight: 600;
+                color: #000;
+            }
+            & input{
+                padding: 15px 15px;
+                border: none;
+                border-radius: 20px;
+                background: rgb(255, 255, 255);
+            }
+            & input::placeholder{
+                color: rgba(0, 0, 0, 0.5);
+                font-size: 15px;
+                font-weight: 600;
+            }
+        }
+    }
+    &__bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%; 
+    
+        & button {
+            bottom: 50px;
+            position: absolute;
+            padding: 10px 0px;
+            width: 80%;
+            color: rgba(0, 0, 0, 0.9);
+            font-weight: 700;
+            font-size: 20px;
+            border-radius: 5px;
+            background: rgb(98, 210, 195);
+            border: none;
+        }
+        & p{
+            position: absolute;
+            bottom: 20px;
+            color: #000;
+            font-size: 15px;
+            font-weight: 700;
+
+            & span{
+                color: rgb(98, 210, 195);
+            }
+        }
+    }
+}

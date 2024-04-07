@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import {useNavigate} from "react-router-dom"
 import axios from 'axios'
+import './Login.scss'
+import image from '../../assets/images/undraw_access_account_re_8spm 1.svg'
 
 function Login() {
     const navigate = useNavigate();
@@ -29,22 +31,26 @@ function Login() {
                 if(user.password === loginData.password){
                     navigate('/home')
                 }
-            }else(
-
-                    setErrAlert(true)
-            )
-        }
+            }
+        }else(
+                setErrAlert(true)
+        )
     }
   return (
     <div className='login'>
         <div className="login__back">
-
+            <h1>Welcome Back!</h1>
+            <img src={image} alt="" />
         </div>
         <div className="login__input">
-            <div><input onChange={inputHandler} type="text" name='email' /></div>
-            <div> <input onChange={inputHandler} type="password" name='password' /></div>
+            <div>
+                <label htmlFor="">Email</label>
+                <input onChange={inputHandler} type="email" name='email' placeholder='user@gmail.com' /></div>
+            <div> 
+                <label htmlFor="">Password</label>
+                <input onChange={inputHandler} type="password" name='password' placeholder='Password' /></div>
             {errAlert && 
-            <p>Error</p>}
+            <p className='error'>Something wrong, please try again!</p>}
         </div>
         <div className="login__bottom">
             <button onClick={loginHandler}>Login</button>

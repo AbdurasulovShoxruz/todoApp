@@ -4,6 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
     "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,7 +29,7 @@
     "start:server1": "json-server --watch db1.json --port 3001",
     "start:server2": "json-server --watch db2.json --port 3002",
     "start:both": "concurrently \"npm run start:server1\" \"npm run start:server2\"",
-     "dev": "vite",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
