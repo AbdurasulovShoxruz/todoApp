@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import './Home.scss'
 
 function Home() {
   const [modal, setModal] = useState(false)
+  const [userData, setUserData] = useState()
   const [taskData, setTaskData] = useState([]);
   const [task, setTask] = useState({
     task: "",
@@ -14,7 +16,17 @@ function Home() {
   }
   useEffect(() => {
     fetchData();
+    fetchUserData();
   }, []);
+
+
+  const fetchUserData = async  () => {
+    const response = await axios.get('http://localhost:3001/users');
+
+setUserData(response)
+
+    console.log(response);
+  }
 
   const fetchData = async () => {
     const { data, status } = await axios.get("http://localhost:3001/tasks");
@@ -65,6 +77,7 @@ function Home() {
 
   return (
     <div className="home">
+      <h1>HELLO {userData?.name}</h1>
       { modal && 
 
 
