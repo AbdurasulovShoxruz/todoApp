@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import './Register.scss'
 import {useNavigate} from "react-router-dom"
+import './Register.scss'
 
 
 function Register() {
